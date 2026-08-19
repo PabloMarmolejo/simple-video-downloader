@@ -7,6 +7,14 @@ como motor y [ffmpeg](https://ffmpeg.org/) para unir pistas y convertir.
 
 Tiene interfaz gráfica y también línea de comandos.
 
+## Descargar
+
+**[Descarga la última versión →](https://github.com/PabloMarmolejo/simple-video-downloader/releases/latest)**
+
+Un solo archivo de 23 MB. No necesita Python ni instalación: doble clic y listo.
+La primera vez descarga por su cuenta los dos componentes que le falten al
+equipo, avisándote antes.
+
 ---
 
 ## Llevarlo a otro equipo: un solo archivo
@@ -285,6 +293,16 @@ Para ejecutar las pruebas:
 ```
 
 ---
+
+## Licencia
+
+Código propio bajo **MIT** (ver [LICENSE](LICENSE)): puedes usarlo, modificarlo
+y redistribuirlo, incluso comercialmente, conservando el aviso de copyright.
+
+Los componentes de terceros —yt-dlp, ffmpeg, deno, Python— tienen sus propias
+licencias, detalladas en [TERCEROS.md](TERCEROS.md). Ahí se explica también por
+qué ffmpeg (GPL v3) se descarga aparte en lugar de empaquetarse: así el código
+propio puede seguir siendo MIT sin conflicto.
 
 ## Nota de uso
 
