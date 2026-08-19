@@ -17,7 +17,15 @@ Si el equipo no tiene los componentes que hacen falta (ffmpeg y
 un motor de JavaScript), el propio programa te lo dira en una
 ventana y los descargara solo. Solo tienes que aceptar.
 
-Esa primera vez necesita conexion a internet.
+Esa primera vez necesita conexion a internet, y tarda unos
+segundos.
+
+El programa NO crea carpetas a su lado: guarda todo en
+%LOCALAPPDATA%\DescargadorDeVideos, asi que puedes dejarlo
+suelto en Descargas sin que te ensucie nada.
+
+(Si lo quieres portable, en un USB con todo junto, crea un
+archivo vacio llamado portable.txt al lado del .exe.)
 
 Windows puede mostrar un aviso azul de SmartScreen porque el
 programa no tiene firma digital. Pulsa "Mas informacion" y luego

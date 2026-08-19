@@ -35,8 +35,16 @@ lo que hay que copiar al otro equipo: por USB, por correo o por la nube. Allí:
    descargarlos, con barra de progreso.
 3. Se aceptan y quedan guardados junto al `.exe`. A partir de ahí abre directo.
 
-Si el `.exe` está en una carpeta protegida (por ejemplo *Archivos de programa*),
-guarda sus datos en `%LOCALAPPDATA%\DescargadorDeVideos` sin pedir permisos.
+### Dónde guarda sus cosas
+
+El ejecutable **no crea carpetas a su lado**: ffmpeg, la sesión y las
+preferencias van a `%LOCALAPPDATA%\DescargadorDeVideos`. Así puedes dejarlo
+suelto en Descargas o en el escritorio sin que te llene la carpeta.
+
+¿Lo prefieres portable, con todo junto en un USB? Crea un archivo vacío llamado
+**`portable.txt`** al lado del `.exe` y guardará ahí mismo, en subcarpetas `bin`
+y `datos`. El paquete que genera `construir_exe.ps1 -ConBin` ya se comporta así
+por venir con su carpeta `bin`.
 
 La primera apertura necesita internet para esa descarga (~146 MB). Para equipos
 sin conexión, copia el `.exe` junto con la carpeta `bin`: así no descarga nada.

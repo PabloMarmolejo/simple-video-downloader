@@ -20,6 +20,7 @@ import os
 import shutil
 import sys
 import threading
+import time
 import urllib.request
 import zipfile
 from pathlib import Path
@@ -51,13 +52,38 @@ def _escribible(carpeta: Path) -> bool:
 ARCHIVOS_DATOS = ("config.json", "cookies.txt", "historial.txt")
 
 
-def carpeta_datos() -> Path:
-    """Donde guardar cookies, configuracion e historial.
+CARPETAS_DEL_USUARIO = ("downloads", "descargas", "desktop", "escritorio",
+                        "documents", "documentos")
 
-    Van en una subcarpeta para que quien abra la carpeta del programa vea lo
-    que tiene que abrir y no un monton de archivos sueltos.
+
+def _en_carpeta_del_usuario() -> bool:
+    """El programa esta suelto en Descargas, Escritorio o Documentos."""
+    try:
+        return (APP_DIR.parent == Path.home()
+                and APP_DIR.name.lower() in CARPETAS_DEL_USUARIO)
+    except OSError:
+        return False
+
+
+def modo_portable() -> bool:
+    """True si los datos y los componentes van junto al programa.
+
+    Un .exe suelto suele acabar en Descargas, y ahi no puede ponerse a crear
+    carpetas: quedarian mezcladas con todo lo demas. Por eso, empaquetado, los
+    datos van a la carpeta del usuario salvo que se pida lo contrario.
     """
-    if _escribible(APP_DIR):
+    if not getattr(sys, "frozen", False):
+        return True                              # en desarrollo, dentro del proyecto
+    if (APP_DIR / "portable.txt").exists():
+        return True                              # el usuario lo pidio explicitamente
+    if _en_carpeta_del_usuario():
+        return False                             # nunca ensuciar Descargas
+    return (APP_DIR / "bin").is_dir()            # reparto con los componentes al lado
+
+
+def carpeta_datos() -> Path:
+    """Donde guardar cookies, configuracion e historial."""
+    if modo_portable() and _escribible(APP_DIR):
         destino = APP_DIR / "datos"
         destino.mkdir(parents=True, exist_ok=True)
         _mudar_datos_antiguos(destino)
@@ -158,6 +184,8 @@ def _descargar(url: str, destino: Path, progreso: Progreso | None = None,
     with urllib.request.urlopen(peticion, timeout=60) as respuesta:
         total = int(respuesta.headers.get("Content-Length") or 0)
         hechos = 0
+        inicio = time.monotonic()
+        ultimo_aviso = 0.0
         with open(destino, "wb") as salida:
             while True:
                 if parar is not None and parar.is_set():
@@ -167,11 +195,26 @@ def _descargar(url: str, destino: Path, progreso: Progreso | None = None,
                     break
                 salida.write(trozo)
                 hechos += len(trozo)
-                if progreso:
-                    pct = (hechos / total * 100) if total else 0.0
-                    progreso(f"Descargando {etiqueta} ({hechos // 1048576} MB"
-                             + (f" de {total // 1048576} MB)" if total else ")"),
-                             pct)
+                ahora = time.monotonic()
+                if progreso and (ahora - ultimo_aviso > 0.3 or hechos == total):
+                    ultimo_aviso = ahora
+                    progreso(_texto_progreso(etiqueta, hechos, total,
+                                             ahora - inicio),
+                             (hechos / total * 100) if total else 0.0)
+
+
+def _texto_progreso(etiqueta: str, hechos: int, total: int, segundos: float) -> str:
+    """Descargando ffmpeg — 45 de 106 MB (9.2 MB/s, faltan 7 s)."""
+    partes = [f"Descargando {etiqueta} — {hechos // 1048576}"]
+    partes.append(f"de {total // 1048576} MB" if total else "MB")
+    if segundos > 0.5:
+        ritmo = hechos / segundos
+        detalle = f"{ritmo / 1048576:.1f} MB/s"
+        if total and ritmo > 0:
+            restan = max(0, int((total - hechos) / ritmo))
+            detalle += f", faltan {restan} s" if restan < 90 else f", faltan {restan // 60} min"
+        partes.append(f"({detalle})")
+    return " ".join(partes)
 
 
 def _extraer(zip_path: Path, nombres: Iterable[str], destino: Path,
@@ -193,11 +236,37 @@ def _extraer(zip_path: Path, nombres: Iterable[str], destino: Path,
     return obtenidos
 
 
-URLS_FFMPEG = (
-    "https://github.com/GyanD/codexffmpeg/releases/latest/download/"
-    "ffmpeg-release-essentials.zip",
-    "https://www.gyan.dev/ffmpeg/builds/ffmpeg-release-essentials.zip",
-)
+API_FFMPEG = "https://api.github.com/repos/GyanD/codexffmpeg/releases/latest"
+
+# Ultimo recurso: el servidor propio del autor de las compilaciones. Funciona
+# siempre, pero va a menos de 1 MB/s frente a los ~9 MB/s de la CDN de GitHub.
+URL_FFMPEG_RESPALDO = "https://www.gyan.dev/ffmpeg/builds/ffmpeg-release-essentials.zip"
+
+
+def _urls_ffmpeg() -> list[str]:
+    """Origenes de ffmpeg, del mas rapido al mas lento.
+
+    Los adjuntos de GitHub llevan la version en el nombre
+    (ffmpeg-9.0.1-essentials_build.zip), asi que no se puede construir la URL a
+    mano: hay que preguntar cual es el ultimo. Vale la pena porque descargar de
+    la CDN de GitHub es mas de diez veces mas rapido.
+    """
+    urls: list[str] = []
+    try:
+        peticion = urllib.request.Request(
+            API_FFMPEG, headers={"User-Agent": f"{NOMBRE_APP}/1.0",
+                                 "Accept": "application/vnd.github+json"}
+        )
+        with urllib.request.urlopen(peticion, timeout=30) as respuesta:
+            datos = json.load(respuesta)
+        for adjunto in datos.get("assets", []):
+            if adjunto.get("name", "").endswith("essentials_build.zip"):
+                urls.append(adjunto["browser_download_url"])
+                break
+    except Exception:  # noqa: BLE001 - sin red o API caida: queda el respaldo
+        pass
+    urls.append(URL_FFMPEG_RESPALDO)
+    return urls
 
 
 def _url_deno() -> str:
@@ -215,7 +284,7 @@ def instalar(componente: str, progreso: Progreso | None = None,
                        "hecha para Windows; instalalo con tu gestor de paquetes.")
 
     if componente == "ffmpeg":
-        urls, piezas = URLS_FFMPEG, ("ffmpeg.exe", "ffprobe.exe")
+        urls, piezas = _urls_ffmpeg(), ("ffmpeg.exe", "ffprobe.exe")
     elif componente == "deno":
         urls, piezas = (_url_deno(),), ("deno.exe",)
     else:

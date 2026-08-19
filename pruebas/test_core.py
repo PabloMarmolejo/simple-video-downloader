@@ -12,6 +12,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
+from descargador.componentes import _texto_progreso  # noqa: E402
 from descargador.core import (  # noqa: E402
     Descargador,
     Opciones,
@@ -238,6 +239,26 @@ class PruebaVerificacionAudio(unittest.TestCase):
     def test_sin_archivo_no_revienta(self):
         _verificar_audio({"id": "x"}, "mp3")
         _verificar_audio(None, "mp3")
+
+
+class PruebaProgresoDescarga(unittest.TestCase):
+    """El aviso de descarga tiene que decir cuanto falta, no solo que espere."""
+
+    def test_incluye_ritmo_y_estimacion(self):
+        texto = _texto_progreso("ffmpeg", 45 * 1048576, 106 * 1048576, 5.0)
+        self.assertIn("45", texto)
+        self.assertIn("106 MB", texto)
+        self.assertIn("MB/s", texto)
+        self.assertIn("faltan", texto)
+
+    def test_al_principio_no_inventa_velocidad(self):
+        """Con dos decimas de descarga la media aun no significa nada."""
+        texto = _texto_progreso("ffmpeg", 1024, 106 * 1048576, 0.2)
+        self.assertNotIn("MB/s", texto)
+
+    def test_sin_tamano_conocido_no_estima(self):
+        texto = _texto_progreso("deno", 5 * 1048576, 0, 3.0)
+        self.assertNotIn("faltan", texto)
 
 
 class PruebaMensajes(unittest.TestCase):

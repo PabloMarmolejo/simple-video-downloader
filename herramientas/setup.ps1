@@ -72,10 +72,20 @@ if (Test-Path $ffmpegExe) {
     Write-Host "Descargando ffmpeg (aprox. 80 MB, puede tardar) ..." -ForegroundColor Yellow
     $zip = Join-Path $env:TEMP 'ffmpeg-descargador.zip'
     $tmp = Join-Path $env:TEMP 'ffmpeg-descargador'
-    $urls = @(
-        'https://github.com/GyanD/codexffmpeg/releases/latest/download/ffmpeg-release-essentials.zip',
-        'https://www.gyan.dev/ffmpeg/builds/ffmpeg-release-essentials.zip'
-    )
+    # Los adjuntos de GitHub llevan la version en el nombre, asi que hay que
+    # preguntar cual es el ultimo: su CDN va diez veces mas rapido que el
+    # servidor propio del autor, que queda como respaldo.
+    $urls = @()
+    try {
+        $rel = Invoke-RestMethod -UseBasicParsing -TimeoutSec 30 `
+            -Uri 'https://api.github.com/repos/GyanD/codexffmpeg/releases/latest'
+        $adjunto = $rel.assets | Where-Object { $_.name -like '*essentials_build.zip' } |
+                   Select-Object -First 1
+        if ($adjunto) { $urls += $adjunto.browser_download_url }
+    } catch {
+        Write-Host "  no se pudo consultar la ultima version en GitHub" -ForegroundColor DarkGray
+    }
+    $urls += 'https://www.gyan.dev/ffmpeg/builds/ffmpeg-release-essentials.zip'
     $ok = $false
     foreach ($url in $urls) {
         try {
