@@ -1,0 +1,92 @@
+===============================================================
+  DESCARGADOR DE VIDEOS
+===============================================================
+
+  COMO EMPEZAR:  haz doble clic en
+
+       DescargadorDeVideos.exe
+
+  Eso es todo. No hay que instalar nada.
+
+
+---------------------------------------------------------------
+La primera vez
+---------------------------------------------------------------
+
+Si el equipo no tiene los componentes que hacen falta (ffmpeg y
+un motor de JavaScript), el propio programa te lo dira en una
+ventana y los descargara solo. Solo tienes que aceptar.
+
+Esa primera vez necesita conexion a internet.
+
+Windows puede mostrar un aviso azul de SmartScreen porque el
+programa no tiene firma digital. Pulsa "Mas informacion" y luego
+"Ejecutar de todas formas".
+
+
+---------------------------------------------------------------
+Como se usa
+---------------------------------------------------------------
+
+1. Pega el enlace del video (YouTube, Facebook, Instagram,
+   TikTok, X, Vimeo... o un enlace directo a un video).
+2. Elige una de las tres opciones:
+      - Video con la mejor calidad
+      - Video mas ligero
+      - Solo el audio (MP3)
+3. Pulsa Descargar.
+
+Doble clic sobre una descarga terminada abre el archivo.
+
+
+---------------------------------------------------------------
+Las dos vistas
+---------------------------------------------------------------
+
+Arriba a la derecha hay un selector:  [ Simple ] [ Completa ]
+
+  SIMPLE (la que aparece al principio)
+  Solo lo imprescindible: el enlace, tres opciones y el boton
+  de descargar. Todo lo demas se ajusta solo.
+
+  COMPLETA
+  Anade calidades exactas (4K, 1080p...), listas de reproduccion,
+  recortar un fragmento, subtitulos, descargas simultaneas,
+  perfiles guardados y el detalle tecnico de lo que ocurre.
+
+Puedes cambiar de una a otra cuando quieras: no se pierde nada
+de lo que estabas haciendo.
+
+
+---------------------------------------------------------------
+Tema claro y oscuro
+---------------------------------------------------------------
+
+Al lado del selector hay un icono de luna. Si lo pulsas, la
+ventana pasa a tema oscuro y el icono se vuelve un sol para
+volver al claro.
+
+La aplicacion abre en tema claro, y recuerda lo que elijas.
+
+
+---------------------------------------------------------------
+Y el resto de carpetas?
+---------------------------------------------------------------
+
+  bin/            ffmpeg y deno (los componentes auxiliares)
+  datos/          tus preferencias y tu sesion guardada
+  descargador/    el codigo del programa
+  herramientas/   instalador y empaquetador (para programadores)
+  pruebas/        pruebas automaticas (para programadores)
+
+  README.md       manual completo: opciones, consola, problemas
+
+No hace falta que toques ninguna de ellas.
+
+
+---------------------------------------------------------------
+Nota
+---------------------------------------------------------------
+
+Descarga solo contenido propio, de dominio publico, con licencia
+abierta o con permiso del titular.

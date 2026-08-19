@@ -1,0 +1,26 @@
+{
+  "artboards": [
+    { "file": "Main.dc.html", "title": "Opcion A - Azul (recomendada)", "x": 0, "y": 0, "w": 900, "h": 620 },
+    { "file": "OpcionB.dc.html", "title": "Opcion B - Verde", "x": 980, "y": 0, "w": 620, "h": 430 },
+    { "file": "OpcionC.dc.html", "title": "Opcion C - Violeta", "x": 980, "y": 500, "w": 620, "h": 430 },
+    { "file": "Completa.dc.html", "title": "Vista Completa (opcion A)", "x": 0, "y": 720, "w": 940, "h": 720 },
+    { "file": "Oscuro.dc.html", "title": "Tema oscuro (opcion A)", "x": 1700, "y": 0, "w": 620, "h": 560 }
+  ],
+  "annotations": [
+    {
+      "id": "nota-direcciones",
+      "x": 0,
+      "y": -150,
+      "w": 900,
+      "text": "Tres direcciones de color para la misma estructura.\nSolo cambia el acento: azul (A), verde (B) o violeta (C).\nTodo lo dibujado aqui es pintable con ttk: color plano, bordes de 1px, sin gradientes ni sombras."
+    },
+    {
+      "id": "nota-jerarquia",
+      "x": 980,
+      "y": 960,
+      "w": 620,
+      "text": "Jerarquia: la barra de titulo y el boton Descargar llevan el acento;\nla opcion elegida se resalta con fondo tenue y borde de color;\nel estado usa color con significado: acento = en curso, verde = listo, rojo = error."
+    }
+  ],
+  "launch": { "view": "canvas" }
+}

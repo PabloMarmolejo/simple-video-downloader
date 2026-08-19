@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <style>
+    body { margin: 0; font-family: "Segoe UI", system-ui, sans-serif; }
+    a { color: #6f9dff; } a:hover { color: #9dbcff; }
+  </style>
+</helmet>
+<div style="width: 620px; height: 560px; background: #14171c; color: #e6e9ee; display: flex; flex-direction: column;">
+
+  <div style="background: #1f4fbd; padding: 12px 18px; display: flex; align-items: center; justify-content: space-between;">
+    <div style="color: #ffffff; font-size: 15px; font-weight: 600;">Descargador de Videos</div>
+    <div style="display: flex; background: rgba(255,255,255,0.16); border-radius: 4px; padding: 2px;">
+      <div style="background: #e8edf7; color: #1f4fbd; font-size: 11px; font-weight: 600; padding: 4px 13px; border-radius: 3px;">Simple</div>
+      <div style="color: #dce4f5; font-size: 11px; padding: 4px 13px;">Completa</div>
+    </div>
+  </div>
+
+  <div style="padding: 16px 18px; display: flex; flex-direction: column; gap: 12px; flex-grow: 1;">
+
+    <div style="background: #1c2027; border: 1px solid #2c333d; border-radius: 6px; padding: 12px;">
+      <div style="font-size: 12px; font-weight: 600; margin-bottom: 8px;">Pega aqui el enlace del video</div>
+      <div style="background: #121519; border: 1px solid #2c333d; border-radius: 4px; padding: 9px 11px; font-size: 12px; color: #9aa4b2; height: 38px;">https://www.youtube.com/watch?v=aqz-KE-bpKQ</div>
+    </div>
+
+    <div style="background: #1c2027; border: 1px solid #2c333d; border-radius: 6px; padding: 12px;">
+      <div style="font-size: 12px; font-weight: 600; margin-bottom: 9px;">Que quieres descargar</div>
+      <div style="display: flex; flex-direction: column; gap: 7px;">
+        <div style="display: flex; align-items: center; gap: 9px; background: #1a2436; border: 1px solid #4d84ff; border-radius: 4px; padding: 9px 11px;">
+          <div style="width: 13px; height: 13px; border-radius: 50%; border: 4px solid #4d84ff; background: #121519; flex-shrink: 0;"></div>
+          <div style="font-size: 12px; font-weight: 600;">Video con la mejor calidad</div>
+          <div style="font-size: 11px; color: #9aa4b2; margin-left: auto;">Ocupa mas espacio</div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 9px; border: 1px solid #2c333d; border-radius: 4px; padding: 9px 11px;">
+          <div style="width: 13px; height: 13px; border-radius: 50%; border: 2px solid #59636f; flex-shrink: 0;"></div>
+          <div style="font-size: 12px;">Video mas ligero</div>
+          <div style="font-size: 11px; color: #9aa4b2; margin-left: auto;">Se descarga mas rapido</div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 9px; border: 1px solid #2c333d; border-radius: 4px; padding: 9px 11px;">
+          <div style="width: 13px; height: 13px; border-radius: 50%; border: 2px solid #59636f; flex-shrink: 0;"></div>
+          <div style="font-size: 12px;">Solo el audio (MP3)</div>
+          <div style="font-size: 11px; color: #9aa4b2; margin-left: auto;">Para escucharlo como musica</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 9px;">
+      <div style="background: #4d84ff; color: #0d1117; font-size: 13px; font-weight: 600; padding: 9px 26px; border-radius: 4px;">Descargar</div>
+      <div style="border: 1px solid #39424e; color: #6b7686; font-size: 12px; padding: 8px 18px; border-radius: 4px;">Cancelar</div>
+    </div>
+
+    <div style="background: #1c2027; border: 1px solid #2c333d; border-radius: 6px; flex-grow: 1; overflow: hidden;">
+      <div style="display: grid; grid-template-columns: 1fr 110px 70px; background: #232830; padding: 7px 11px; font-size: 10px; font-weight: 600; color: #9aa4b2;">
+        <div>TITULO</div><div>ESTADO</div><div>PROGRESO</div>
+      </div>
+      <div style="display: grid; grid-template-columns: 1fr 110px 70px; padding: 8px 11px; font-size: 11px;">
+        <div>Big Buck Bunny 60fps 4K</div><div style="color: #6f9dff; font-weight: 600;">Descargando</div><div>64.0%</div>
+      </div>
+      <div style="height: 3px; background: #232830; margin: 0 11px;"><div style="width: 64%; height: 3px; background: #4d84ff;"></div></div>
+      <div style="display: grid; grid-template-columns: 1fr 110px 70px; padding: 8px 11px; font-size: 11px; background: #191d23;">
+        <div>Charla sobre fotografia</div><div style="color: #82c98d; font-weight: 600;">Completado</div><div>100%</div>
+      </div>
+      <div style="display: grid; grid-template-columns: 1fr 110px 70px; padding: 8px 11px; font-size: 11px;">
+        <div>Video privado de ejemplo</div><div style="color: #e06c75; font-weight: 600;">Error</div><div></div>
+      </div>
+    </div>
+  </div>
+
+  <div style="background: #191d23; border-top: 1px solid #2c333d; padding: 6px 18px; font-size: 11px; color: #9aa4b2; display: flex; justify-content: space-between;">
+    <div>Descargando 1 de 3</div><div style="color: #82c98d;">Sesion lista</div>
+  </div>
+</div>
+</x-dc>
+<script data-dc-script data-props='{}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

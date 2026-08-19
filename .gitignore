@@ -1,0 +1,13 @@
+.venv/
+bin/*.exe
+datos/
+DescargadorDeVideos.exe
+__pycache__/
+*.pyc
+build/
+dist/
+*.spec
+
+# Lienzo de diseno ya generado: se reconstruye desde los .dc.html
+herramientas/diseno/*.html
+!herramientas/diseno/*.dc.html

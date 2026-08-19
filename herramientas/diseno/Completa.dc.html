@@ -1,0 +1,119 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <style>
+    body { margin: 0; font-family: "Segoe UI", system-ui, sans-serif; }
+    a { color: #2f6df6; } a:hover { color: #1f57d6; }
+  </style>
+</helmet>
+<div style="width: 940px; height: 720px; background: #f4f5f7; color: #1c2430; display: flex; flex-direction: column;">
+
+  <div style="background: #2f6df6; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between;">
+    <div style="color: #ffffff; font-size: 17px; font-weight: 600;">Descargador de Videos</div>
+    <div style="display: flex; background: rgba(255,255,255,0.18); border-radius: 4px; padding: 2px;">
+      <div style="color: #ffffff; font-size: 12px; padding: 5px 16px;">Simple</div>
+      <div style="background: #ffffff; color: #2f6df6; font-size: 12px; font-weight: 600; padding: 5px 16px; border-radius: 3px;">Completa</div>
+    </div>
+  </div>
+
+  <div style="padding: 16px 20px; display: flex; flex-direction: column; gap: 12px; flex-grow: 1;">
+
+    <div style="background: #ffffff; border: 1px solid #dfe3e8; border-radius: 6px; padding: 12px;">
+      <div style="font-size: 12px; font-weight: 600; color: #55607a; margin-bottom: 7px;">ENLACES</div>
+      <div style="background: #fbfcfd; border: 1px solid #dfe3e8; border-radius: 4px; padding: 9px 11px; font-size: 12px; color: #667085; height: 40px;">https://www.youtube.com/watch?v=aqz-KE-bpKQ</div>
+      <div style="display: flex; gap: 8px; margin-top: 9px;">
+        <div style="border: 1px solid #c7cdd6; border-radius: 4px; padding: 4px 13px; font-size: 12px;">Pegar</div>
+        <div style="border: 1px solid #c7cdd6; border-radius: 4px; padding: 4px 13px; font-size: 12px;">Limpiar</div>
+        <div style="border: 1px solid #c7cdd6; border-radius: 4px; padding: 4px 13px; font-size: 12px;">Analizar</div>
+      </div>
+    </div>
+
+    <div>
+      <div style="display: flex; gap: 3px;">
+        <div style="background: #ffffff; border: 1px solid #dfe3e8; border-bottom: 2px solid #2f6df6; border-radius: 5px 5px 0 0; padding: 8px 22px; font-size: 12px; font-weight: 600; color: #2f6df6;">Basico</div>
+        <div style="background: #e9edf2; border: 1px solid #dfe3e8; border-radius: 5px 5px 0 0; padding: 8px 22px; font-size: 12px; color: #55607a;">Avanzado</div>
+        <div style="background: #e9edf2; border: 1px solid #dfe3e8; border-radius: 5px 5px 0 0; padding: 8px 22px; font-size: 12px; color: #55607a;">Sesion</div>
+      </div>
+      <div style="background: #ffffff; border: 1px solid #dfe3e8; border-radius: 0 6px 6px 6px; padding: 14px; display: flex; flex-direction: column; gap: 11px;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <div style="font-size: 12px; width: 110px;">Calidad</div>
+          <div style="border: 1px solid #c7cdd6; border-radius: 4px; padding: 5px 11px; font-size: 12px; background: #ffffff; width: 250px;">Video - mejor calidad disponible</div>
+          <div style="font-size: 12px; color: #98a2b3;">Audio (kbps)</div>
+          <div style="border: 1px solid #e6e9ee; border-radius: 4px; padding: 5px 11px; font-size: 12px; color: #b6bdc7;">192</div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <div style="font-size: 12px; width: 110px;">Guardar en</div>
+          <div style="border: 1px solid #c7cdd6; border-radius: 4px; padding: 5px 11px; font-size: 12px; flex-grow: 1;">C:\Users\lp\Downloads\Videos descargados</div>
+          <div style="border: 1px solid #c7cdd6; border-radius: 4px; padding: 5px 13px; font-size: 12px;">Examinar</div>
+        </div>
+        <div style="display: flex; gap: 18px; align-items: center; padding-top: 3px;">
+          <div style="display: flex; align-items: center; gap: 7px; font-size: 12px;">
+            <div style="width: 13px; height: 13px; border: 1px solid #b6bdc7; border-radius: 3px;"></div>Lista completa
+          </div>
+          <div style="display: flex; align-items: center; gap: 7px; font-size: 12px;">
+            <div style="width: 13px; height: 13px; border: 1px solid #b6bdc7; border-radius: 3px;"></div>Subtitulos
+          </div>
+          <div style="display: flex; align-items: center; gap: 7px; font-size: 12px;">
+            <div style="width: 13px; height: 13px; background: #2f6df6; border: 1px solid #2f6df6; border-radius: 3px;"></div>Compatibilidad maxima
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 9px;">
+      <div style="background: #2f6df6; color: #ffffff; font-size: 13px; font-weight: 600; padding: 9px 26px; border-radius: 4px;">Descargar</div>
+      <div style="border: 1px solid #c7cdd6; color: #98a2b3; font-size: 12px; padding: 8px 18px; border-radius: 4px;">Cancelar</div>
+      <div style="border: 1px solid #c7cdd6; color: #98a2b3; font-size: 12px; padding: 8px 18px; border-radius: 4px;">Reintentar fallidos</div>
+      <div style="margin-left: auto; display: flex; gap: 8px;">
+        <div style="border: 1px solid #c7cdd6; font-size: 12px; padding: 8px 14px; border-radius: 4px;">Actualizar yt-dlp</div>
+      </div>
+    </div>
+
+    <div style="background: #ffffff; border: 1px solid #dfe3e8; border-radius: 6px; overflow: hidden;">
+      <div style="display: grid; grid-template-columns: 1fr 130px 80px 90px 70px; background: #eef1f5; padding: 8px 12px; font-size: 11px; font-weight: 600; color: #55607a;">
+        <div>TITULO</div><div>ESTADO</div><div>PROGRESO</div><div>VELOCIDAD</div><div>FALTA</div>
+      </div>
+      <div style="display: grid; grid-template-columns: 1fr 130px 80px 90px 70px; padding: 8px 12px; font-size: 12px;">
+        <div>Big Buck Bunny 60fps 4K</div><div style="color: #2f6df6; font-weight: 600;">Descargando</div><div>64.0%</div><div>9.2 MB/s</div><div>0:12</div>
+      </div>
+      <div style="height: 3px; background: #eef1f5; margin: 0 12px;"><div style="width: 64%; height: 3px; background: #2f6df6;"></div></div>
+      <div style="display: grid; grid-template-columns: 1fr 130px 80px 90px 70px; padding: 8px 12px; font-size: 12px; background: #fafbfc;">
+        <div>Charla sobre fotografia</div><div style="color: #1f8a4c; font-weight: 600;">Completado</div><div>100%</div><div></div><div></div>
+      </div>
+      <div style="display: grid; grid-template-columns: 1fr 130px 80px 90px 70px; padding: 8px 12px; font-size: 12px;">
+        <div>Video privado de ejemplo</div><div style="color: #c0392b; font-weight: 600;">Error</div><div></div><div></div><div></div>
+      </div>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 4px;">
+      <div style="height: 8px; background: #e2e6ec; border-radius: 4px; overflow: hidden;"><div style="width: 64%; height: 8px; background: #2f6df6;"></div></div>
+      <div style="height: 8px; background: #e2e6ec; border-radius: 4px; overflow: hidden;"><div style="width: 33%; height: 8px; background: #7fa5f9;"></div></div>
+    </div>
+
+    <div style="background: #1c2430; border-radius: 6px; padding: 11px 13px; font-size: 11px; color: #b8c2d0; line-height: 1.7; flex-grow: 1; font-family: Consolas, monospace;">
+      <div style="color: #7fa5f9;">--- https://www.youtube.com/watch?v=aqz-KE-bpKQ</div>
+      <div>Usando las cookies guardadas de la app</div>
+      <div style="color: #7fd8a0;">Compatibilidad: convirtiendo audio HE-AAC a AAC-LC...</div>
+      <div style="color: #f0a5a0;">Aviso: la sesion guardada no sirvio; renovandola...</div>
+    </div>
+  </div>
+
+  <div style="background: #eef1f5; border-top: 1px solid #dfe3e8; padding: 7px 20px; font-size: 12px; color: #55607a; display: flex; justify-content: space-between;">
+    <div>Listo. yt-dlp 2026.07.04</div>
+    <div style="color: #1f8a4c;">Sesion guardada lista</div>
+  </div>
+</div>
+</x-dc>
+<script data-dc-script data-props='{}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>
