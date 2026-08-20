@@ -2,11 +2,16 @@
   DESCARGADOR DE VIDEOS
 ===============================================================
 
-  COMO EMPEZAR:  haz doble clic en
+  COMO EMPEZAR
+  ------------
 
-       DescargadorDeVideos.exe
+  Si tienes el archivo DescargadorDeVideos.exe:
+       doble clic y listo.
 
-  Eso es todo. No hay que instalar nada.
+  Si descomprimiste el ZIP con el codigo:
+       doble clic en "Abrir Descargador.bat"
+       (la primera vez tarda un par de minutos: prepara
+        Python y lo demas por su cuenta)
 
 
 ---------------------------------------------------------------
@@ -30,6 +35,12 @@ archivo vacio llamado portable.txt al lado del .exe.)
 Windows puede mostrar un aviso azul de SmartScreen porque el
 programa no tiene firma digital. Pulsa "Mas informacion" y luego
 "Ejecutar de todas formas".
+
+Si en cambio ves una ventana que dice "Control inteligente de
+aplicaciones bloqueo una aplicacion" y NO te deja continuar, ese
+equipo no puede ejecutar el programa: esa proteccion solo admite
+programas firmados y no tiene excepciones. Lee la seccion "Si
+Windows bloquea el programa" del README para las opciones.
 
 
 ---------------------------------------------------------------

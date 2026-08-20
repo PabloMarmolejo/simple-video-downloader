@@ -2,6 +2,7 @@
 bin/*.exe
 datos/
 DescargadorDeVideos.exe
+DescargadorDeVideos-codigo.zip
 __pycache__/
 *.pyc
 build/

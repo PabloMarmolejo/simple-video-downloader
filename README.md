@@ -9,11 +9,58 @@ Tiene interfaz gráfica y también línea de comandos.
 
 ## Descargar
 
-**[Descarga la última versión →](https://github.com/PabloMarmolejo/simple-video-downloader/releases/latest)**
+**[Ir a la última versión →](https://github.com/PabloMarmolejo/simple-video-downloader/releases/latest)**
 
-Un solo archivo de 23 MB. No necesita Python ni instalación: doble clic y listo.
-La primera vez descarga por su cuenta los dos componentes que le falten al
-equipo, avisándote antes.
+Hay dos formas, y conviene saber cuál te toca:
+
+| | `DescargadorDeVideos.exe` | `DescargadorDeVideos-codigo.zip` |
+|---|---|---|
+| Tamaño | 23 MB | 53 KB |
+| Qué hace | Doble clic y listo | Descomprimir y abrir `Abrir Descargador.bat` |
+| Necesita Python | No | Lo instala solo si falta |
+| Aviso de SmartScreen | Sí, hay que aceptarlo | No |
+| Con *Control inteligente de aplicaciones* activo | Bloqueado | Bloqueado (ver abajo) |
+
+Empieza por el `.exe`. Si Windows lo bloquea sin darte opción de continuar, lee
+la sección siguiente antes de pelearte con él.
+
+---
+
+## Si Windows bloquea el programa
+
+Son dos avisos distintos y solo uno tiene solución.
+
+### SmartScreen: aviso, no bloqueo
+
+Una ventana azul que dice que no se reconoce la aplicación, con un enlace
+**Más información** y, debajo, **Ejecutar de todas formas**. Sale porque el
+archivo no está firmado digitalmente —firmar cuesta cientos de dólares al año—,
+no porque el programa tenga nada malo. Pulsa esos dos botones y funciona.
+
+### Control inteligente de aplicaciones: bloqueo sin salida
+
+Una ventana que dice *"bloqueó una aplicación que podría no ser segura"* y solo
+ofrece **Aceptable** y **Obtener aplicaciones en Store**. No hay "ejecutar de
+todas formas" porque esta función no admite excepciones: solo permite programas
+con firma digital.
+
+Para comprobar si lo tienes activo: *Seguridad de Windows → Control de
+aplicaciones y navegador → Control inteligente de aplicaciones*.
+
+Si está activado, **este programa no puede funcionar en ese equipo**, y el ZIP
+tampoco resuelve nada: el bloqueo alcanza a Python y a ffmpeg, que tampoco
+llevan firma. No es un problema que se arregle con código.
+
+Las opciones reales son tres:
+
+1. **Usar otro equipo.** El bloqueo solo viene activado de fábrica en
+   instalaciones limpias de Windows 11. En equipos actualizados desde Windows 10
+   está apagado.
+2. **Apagarlo.** Está en la misma pantalla de Seguridad de Windows. Ojo:
+   **es irreversible** — Windows solo permite apagarlo, y para volver a
+   activarlo hay que reinstalar el sistema. Piénsalo dos veces por un programa.
+3. **Esperar.** Microsoft revisa las aplicaciones bloqueadas; si gana
+   reputación, deja de bloquearse aunque siga sin firma.
 
 ---
 

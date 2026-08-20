@@ -14,27 +14,90 @@ Write-Host ""
 # --- 1. Python ---------------------------------------------------------------
 # Nota: nada de "2>&1" al invocar ejecutables nativos; con ErrorActionPreference
 # 'Stop' PowerShell 5.1 convierte esa salida en excepcion y rompe la deteccion.
-$python = $null
-foreach ($cmd in @('py', 'python', 'python3')) {
-    $encontrado = Get-Command $cmd -ErrorAction SilentlyContinue
-    if (-not $encontrado) { continue }
+# $script:habiaCandidato distingue dos fracasos que se arreglan distinto: no
+# tener Python, o tenerlo y que Windows no deje ejecutarlo.
+$script:habiaCandidato = $false
 
-    $prefijo = if ($cmd -eq 'py') { @('-3') } else { @() }
-    $sonda = @('-c', 'import sys; print(sys.version.split()[0])')
-    $ErrorActionPreference = 'Continue'
-    $version = & $encontrado.Source @prefijo @sonda
-    $codigo = $LASTEXITCODE
-    $ErrorActionPreference = 'Stop'
+function Buscar-Python {
+    foreach ($cmd in @('py', 'python', 'python3')) {
+        $encontrado = Get-Command $cmd -ErrorAction SilentlyContinue
+        if (-not $encontrado) { continue }
+        $script:habiaCandidato = $true
 
-    if ($codigo -eq 0 -and $version) {
-        $python = @{ Exe = $encontrado.Source; Prefijo = $prefijo }
-        Write-Host "Python encontrado: $version ($($encontrado.Source))" -ForegroundColor Green
-        break
+        $prefijo = if ($cmd -eq 'py') { @('-3') } else { @() }
+        $sonda = @('-c', 'import sys; print(sys.version.split()[0])')
+
+        # Cuando Windows impide ejecutar el archivo, el fallo no es salida del
+        # programa sino de PowerShell al lanzarlo, asi que no lo calla ninguna
+        # redireccion: hay que capturarlo como excepcion.
+        $version = $null
+        $codigo = 1
+        try {
+            $ErrorActionPreference = 'Stop'
+            $version = & $encontrado.Source @prefijo @sonda 2>$null
+            $codigo = $LASTEXITCODE
+        } catch {
+            $codigo = 1
+        } finally {
+            $ErrorActionPreference = 'Stop'
+        }
+
+        if ($codigo -eq 0 -and $version) {
+            Write-Host "Python encontrado: $version ($($encontrado.Source))" -ForegroundColor Green
+            return @{ Exe = $encontrado.Source; Prefijo = $prefijo }
+        }
+    }
+    return $null
+}
+
+$python = Buscar-Python
+
+if (-not $python) {
+    # Se instala con winget, que ya viene en Windows 10 y 11: asi quien estrena
+    # el programa no tiene que buscar nada a mano. --force porque puede haber un
+    # Python instalado que Windows rechaza, y hace falta el firmado de python.org.
+    if (Get-Command winget -ErrorAction SilentlyContinue) {
+        if ($script:habiaCandidato) {
+            Write-Host "Hay un Python instalado que Windows no deja ejecutar." -ForegroundColor Yellow
+            Write-Host "Probando con la version firmada de python.org ..." -ForegroundColor Yellow
+        } else {
+            Write-Host "No hay Python en este equipo. Instalandolo con winget ..." -ForegroundColor Yellow
+        }
+        Write-Host "(son unos 30 MB; Windows puede pedirte confirmacion)" -ForegroundColor DarkGray
+
+        $ErrorActionPreference = 'Continue'
+        winget install --id Python.Python.3.13 --exact --source winget --force `
+               --accept-source-agreements --accept-package-agreements
+        $ErrorActionPreference = 'Stop'
+
+        # winget cambia el PATH del sistema, no el de esta ventana: hay que
+        # releerlo para encontrar el Python que acaba de instalar.
+        $env:PATH = [Environment]::GetEnvironmentVariable('PATH', 'Machine') + ';' +
+                    [Environment]::GetEnvironmentVariable('PATH', 'User')
+        $python = Buscar-Python
     }
 }
+
 if (-not $python) {
-    Write-Host "No se encontro Python. Instalalo desde https://www.python.org/downloads/" -ForegroundColor Red
-    Write-Host "(marca la casilla 'Add python.exe to PATH' durante la instalacion)." -ForegroundColor Red
+    Write-Host ""
+    if ($script:habiaCandidato) {
+        # Sintoma tipico del Control Inteligente de Aplicaciones de Windows 11.
+        Write-Host "Windows esta bloqueando la ejecucion de Python." -ForegroundColor Red
+        Write-Host ""
+        Write-Host "Casi siempre es el Control Inteligente de Aplicaciones, que" -ForegroundColor Yellow
+        Write-Host "solo permite programas con firma digital. Para comprobarlo:" -ForegroundColor Yellow
+        Write-Host "  Seguridad de Windows > Control de aplicaciones y navegador" -ForegroundColor White
+        Write-Host "  > Control inteligente de aplicaciones" -ForegroundColor White
+        Write-Host ""
+        Write-Host "Si esta activado, este programa no puede funcionar en este" -ForegroundColor Yellow
+        Write-Host "equipo: tambien bloquea ffmpeg, que no tiene firma. Apagarlo" -ForegroundColor Yellow
+        Write-Host "es irreversible sin reinstalar Windows. Lee la seccion" -ForegroundColor Yellow
+        Write-Host "correspondiente del README antes de decidir." -ForegroundColor Yellow
+    } else {
+        Write-Host "No se pudo preparar Python automaticamente." -ForegroundColor Red
+        Write-Host "Instalalo desde https://www.python.org/downloads/ marcando la" -ForegroundColor Red
+        Write-Host "casilla 'Add python.exe to PATH', y vuelve a ejecutar este archivo." -ForegroundColor Red
+    }
     exit 1
 }
 

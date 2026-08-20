@@ -2,15 +2,17 @@
 setlocal
 cd /d "%~dp0"
 
-rem Abre la aplicacion usando el Python del equipo (modo desarrollo).
-rem Si prefieres no depender de Python, construye el ejecutable con:
-rem    powershell -ExecutionPolicy Bypass -File herramientas\construir_exe.ps1
+rem Abre la aplicacion. La primera vez prepara todo lo que haga falta
+rem (Python incluido) y despues arranca directo.
 
 set "PYW=%~dp0.venv\Scripts\pythonw.exe"
 set "PY=%~dp0.venv\Scripts\python.exe"
 
 if not exist "%PY%" (
-    echo Primera ejecucion: instalando lo necesario...
+    echo.
+    echo  Primera vez: preparando el programa. Tarda un par de minutos.
+    echo  Se descargan Python, yt-dlp y ffmpeg. Deja la ventana abierta.
+    echo.
     powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0herramientas\setup.ps1"
     if not exist "%PY%" (
         echo.
