@@ -7,6 +7,10 @@ como motor y [ffmpeg](https://ffmpeg.org/) para unir pistas y convertir.
 
 Tiene interfaz gráfica y también línea de comandos.
 
+[![Descargador de Videos en 30 segundos: pegar enlaces, descargar, vista completa y tema oscuro](docs/promo/descargador-promo.jpg)](docs/promo/descargador-promo.mp4)
+
+▶ [Ver el video (29 s)](docs/promo/descargador-promo.mp4) · se descargan cortos de Blender Foundation con licencia Creative Commons
+
 ## Descargar
 
 **[Ir a la última versión →](https://github.com/PabloMarmolejo/simple-video-downloader/releases/latest)**
